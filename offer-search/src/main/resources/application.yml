@@ -1,0 +1,22 @@
+server:
+  port: 8100
+cloud:
+  aws:
+    region:
+      static: ${AWS_REGION}
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    sqs:
+      endpoint: ${AWS_SQS_ENDPOINT}
+sns:
+  topics:
+    events-offer: ${AWS_SNS_EVENTS_OFFER_TOPIC}
+
+sqs:
+  queues:
+    confirmed-created-offer: "confirmed-created-offer-queue"
+
