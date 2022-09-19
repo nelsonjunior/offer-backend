@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-@ComponentScan("br.com.offer")
 class CoreApplication
 
 fun main(args: Array<String>) {

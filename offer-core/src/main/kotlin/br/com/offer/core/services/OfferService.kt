@@ -1,7 +1,7 @@
 package br.com.offer.core.services
 
-import br.com.offer.common.domain.enums.EventTypeEnum
-import br.com.offer.common.exceptions.OfferException
+import br.com.offer.core.domain.enums.EventTypeEnum
+import br.com.offer.core.config.exceptions.OfferException
 import br.com.offer.core.config.properties.SNSTopicsProperties
 import br.com.offer.core.domain.dto.CreateOfferDTO
 import br.com.offer.core.domain.dto.OfferDTO
@@ -20,9 +20,25 @@ class OfferService(
     private val topicsConfig: SNSTopicsProperties
 ) {
 
+
+    fun listOffers(storeID: String,
+                   term: String): List<OfferDTO> {
+
+        return repository.findByStoreIDAndTerm(storeID, term).let {
+            it.map { offer -> mapper.toDTO(offer) }
+        }
+    }
+
     fun getById(id: String): OfferDTO {
 
         val offer = repository.getById(id) ?: throw OfferException("Oferta não encontrada!")
+
+        return mapper.toDTO(offer)
+    }
+
+    fun getBySlug(slug: String): OfferDTO {
+
+        val offer = repository.getBySlug(slug) ?: throw OfferException("Oferta não encontrada!")
 
         return mapper.toDTO(offer)
     }
@@ -57,4 +73,5 @@ class OfferService(
 
         repository.update(offer)
     }
+
 }

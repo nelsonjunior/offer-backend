@@ -16,7 +16,10 @@ data class Offer(
     var offerID: String? = null,
 
     @DynamoDBAttribute
-    var storeID: String? = null,
+    var store: Store? = null,
+
+    @DynamoDBAttribute
+    var category: Category? = null,
 
     @DynamoDBAttribute
     var createdAt: Date = Date(),
@@ -37,12 +40,28 @@ data class Offer(
     var tag: String? = null,
 
     @DynamoDBAttribute
-    var image: String? = null,
+    var images: List<String>? = null,
 
     @DynamoDBAttribute
-    var metrics: OfferMetrics? = null,
+    var metrics: Metrics? = null,
 
     @DynamoDBTypeConvertedEnum
     @DynamoDBAttribute
-    var status: OfferStatusEnum = OfferStatusEnum.PENDING
+    var status: OfferStatusEnum = OfferStatusEnum.PENDING,
+
+    @DynamoDBAttribute
+    var additionalInformation: String? = null,
+
+    @DynamoDBAttribute
+    var datePublish: Date? = null,
+
+    @DynamoDBAttribute
+    var dateExpire: Date? = null,
+
+    @DynamoDBAttribute
+    var searchTerm: String? = null,
+
+    @DynamoDBAttribute
+    var storeID: String? = null
+
 )

@@ -4,12 +4,13 @@ import java.util.*
 
 data class OfferDTO(
     val offerID: String?,
-    val storeID: String?,
-    val createdAt: Date?,
+    val store: StoreDTO?,
+    val category: CategoryDTO?,
     val description: String?,
     val slug: String?,
     val price: Double?,
     val lastPrice: Double?,
     val tag: String?,
-    val image: String?,
+    val images: List<String>?,
+    val metrics: MetricsDTO?,
 )

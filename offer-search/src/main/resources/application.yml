@@ -1,5 +1,6 @@
 server:
-  port: 8100
+  port: 80
+
 cloud:
   aws:
     region:
@@ -20,3 +21,11 @@ sqs:
   queues:
     confirmed-created-offer: "confirmed-created-offer-queue"
 
+elasticsearch:
+  endpoint: ${ELASTICSEARCH_ENDPOINT}
+  username: ${ELASTICSEARCH_USERNAME}
+  password: ${ELASTICSEARCH_PASSWORD}
+  dev: ${ELASTICSEARCH_DEV:false}
+
+springdoc:
+  default-produces-media-type: application/json
