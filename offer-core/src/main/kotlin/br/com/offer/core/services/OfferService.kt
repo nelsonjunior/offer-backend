@@ -1,16 +1,19 @@
 package br.com.offer.core.services
 
-import br.com.offer.core.domain.enums.EventTypeEnum
 import br.com.offer.core.config.exceptions.OfferException
 import br.com.offer.core.config.properties.SNSTopicsProperties
 import br.com.offer.core.domain.dto.CreateOfferDTO
 import br.com.offer.core.domain.dto.OfferDTO
 import br.com.offer.core.domain.entities.Offer
+import br.com.offer.core.domain.enums.EventTypeEnum
 import br.com.offer.core.domain.enums.OfferStatusEnum
 import br.com.offer.core.domain.mapper.OfferMapper
 import br.com.offer.core.repositories.OfferRepository
 import io.awspring.cloud.messaging.core.NotificationMessagingTemplate
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.stereotype.Service
+
 
 @Service
 class OfferService(
@@ -23,6 +26,10 @@ class OfferService(
 
     fun listOffers(storeID: String,
                    term: String): List<OfferDTO> {
+
+        val principal = SecurityContextHolder.getContext().authentication as JwtAuthenticationToken
+        val name = principal.token.claims["name"]?.toString()
+        val email = principal.token.claims["email"]?.toString()
 
         return repository.findByStoreIDAndTerm(storeID, term).let {
             it.map { offer -> mapper.toDTO(offer) }

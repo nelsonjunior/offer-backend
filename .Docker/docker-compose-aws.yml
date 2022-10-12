@@ -2,38 +2,10 @@ version: '3.9'
 
 services:
 
-  elasticsearch:
-    container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.6
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      discovery.type: "single-node"
-      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
-      xpack.monitoring.enabled: "true"
-    volumes:
-      - ./esdata:/usr/share/elasticsearch/data
-    networks:
-      - offer-network
-
-  kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:7.17.6
-    ports:
-      - "5601:5601"
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
-    depends_on:
-      - elasticsearch
-    networks:
-      - offer-network
-
   offer-core:
     container_name: offer-core
-    image: offer/offer-core
-    build: ./offer-core
-    working_dir: /offer-core
+    image: 733419978185.dkr.ecr.us-east-1.amazonaws.com/offer-core:latest
+    working_dir: /
     restart: always
     command: ./mvnw spring-boot:run
     ports:
@@ -50,9 +22,8 @@ services:
 
   offer-search:
     container_name: offer-search
-    image: offer/offer-search
-    build: ./offer-search
-    working_dir: /offer-search
+    image: 733419978185.dkr.ecr.us-east-1.amazonaws.com/offer-search:latest
+    working_dir: /
     restart: always
     command: ./mvnw spring-boot:run
     ports:
@@ -77,7 +48,3 @@ networks:
   offer-network:
       name: offer-network
       driver: bridge
-
-volumes:
-  esdata:
-    driver: local

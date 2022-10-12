@@ -25,7 +25,6 @@
     </properties>
 
     <modules>
-        <module>offer-common</module>
         <module>offer-core</module>
         <module>offer-search</module>
     </modules>

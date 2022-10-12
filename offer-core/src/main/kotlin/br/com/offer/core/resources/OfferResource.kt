@@ -13,7 +13,7 @@ import javax.validation.Valid
 
 @Tag(name = "Offer endpoint")
 @RestController
-@RequestMapping("/offers", consumes = ["application/json"], produces = ["application/json"])
+@RequestMapping("/offers")
 @Validated
 class OfferResource (
     private val pagingOfferRepository: PagingOfferRepository,
